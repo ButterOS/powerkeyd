@@ -1,0 +1,7 @@
+[Unit]
+Description=Wake display
+After=graphical.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/displayctl on

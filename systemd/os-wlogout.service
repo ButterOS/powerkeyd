@@ -1,0 +1,9 @@
+[Unit]
+Description=Power menu (wlogout)
+After=graphical.target
+
+[Service]
+Type=simple
+User=auto
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+ExecStart=/usr/bin/wlogout

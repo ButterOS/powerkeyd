@@ -1,0 +1,46 @@
+#!/bin/sh
+set -eu
+
+BL_DIR="$(ls -1d /sys/class/backlight/* 2>/dev/null | head -n1 || true)"
+[ -n "$BL_DIR" ] || exit 0
+
+BRIGHT="$BL_DIR/brightness"
+MAX="$BL_DIR/max_brightness"
+
+STATE_DIR=/run/displayctl
+mkdir -p "$STATE_DIR"
+
+get() { cat "$BRIGHT"; }
+setb() { printf '%s' "$1" > "$BRIGHT"; }
+
+case "${1:-}" in
+  off)
+    if [ ! -f "$STATE_DIR/prev_brightness" ]; then
+      get > "$STATE_DIR/prev_brightness" || true
+    fi
+    setb 0
+    ;;
+  dim)
+    m="$(cat "$MAX")"
+    d=$(( m / 10 ))
+    [ "$d" -lt 1 ] && d=1
+    setb "$d"
+    ;;
+  on)
+    if [ -f "$STATE_DIR/prev_brightness" ]; then
+      v="$(cat "$STATE_DIR/prev_brightness" || echo "")"
+      if [ -n "$v" ] && [ "$v" -gt 0 ] 2>/dev/null; then
+        setb "$v"
+        exit 0
+      fi
+    fi
+    m="$(cat "$MAX")"
+    v=$(( (m * 80) / 100 ))
+    [ "$v" -lt 1 ] && v=1
+    setb "$v"
+    ;;
+  *)
+    echo "Usage: displayctl {off|dim|on}" >&2
+    exit 2
+    ;;
+esac

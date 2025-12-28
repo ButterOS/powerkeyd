@@ -1,0 +1,7 @@
+[Unit]
+Description=Dim display
+After=graphical.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/displayctl dim

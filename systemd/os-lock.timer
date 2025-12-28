@@ -1,0 +1,5 @@
+[Timer]
+OnIdleSec=5min
+
+[Install]
+WantedBy=timers.target

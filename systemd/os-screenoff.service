@@ -1,0 +1,8 @@
+[Unit]
+Description=Screen off (lock + backlight)
+After=graphical.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/lockctl
+ExecStart=/usr/bin/displayctl off

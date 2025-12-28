@@ -1,0 +1,13 @@
+option(
+  'default_match',
+  type: 'string',
+  value: 'gpio-keys',
+  description: 'Substring to match input device name',
+)
+
+option(
+  'grab_device',
+  type: 'boolean',
+  value: true,
+  description: 'Attempt EVIOCGRAB on the input device',
+)

@@ -1,0 +1,13 @@
+[Unit]
+Description=Android-like power button handler
+After=systemd-logind.service
+Wants=systemd-logind.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=0.5
+ExecStart=/usr/bin/powerkeyd gpio-keys
+
+[Install]
+WantedBy=multi-user.target
