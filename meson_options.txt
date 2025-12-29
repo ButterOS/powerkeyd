@@ -11,3 +11,9 @@ option(
   value: true,
   description: 'Attempt EVIOCGRAB on the input device',
 )
+
+option('systemd_system_unit_dir',
+  type: 'string',
+  value: '',
+  description: 'Override systemd system unit dir (empty = query systemd via pkg-config)'
+)
