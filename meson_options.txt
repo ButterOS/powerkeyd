@@ -1,7 +1,7 @@
 option(
   'default_match',
   type: 'string',
-  value: 'gpio-keys',
+  value: 'gpio_keys',
   description: 'Substring to match input device name',
 )
 
